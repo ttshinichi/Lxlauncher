@@ -67,10 +67,10 @@ static gpointer reload_notify_id;
 
 static GKeyFile *key_file;
 
-static gint button_size;	//added
-static gint img_size;		//added
+static gint button_size;
+static gint img_size;
 
-static int area_width, area_height;
+static int area_width, area_height;		//added
 
 typedef struct _PageData{
     MenuCacheDir* dir;
@@ -704,10 +704,13 @@ static void create_notebook_pages()
 		
 		file_path = "/home/kid/Pictures/background1.JPG";
 		pixbuf = gdk_pixbuf_new_from_file_at_scale(file_path, area_width, area_height, FALSE, NULL);
-    	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &background, NULL, 0);
-    	style = gtk_style_new ();
-    	style->bg_pixmap[0] = background;
-    	gtk_widget_set_style (GTK_WIDGET(viewport), GTK_STYLE(style));	//end add
+		if(pixbuf){
+	    	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &background, NULL, 0);
+	    	style = gtk_style_new ();
+	    	style->bg_pixmap[0] = background;
+	    	gtk_widget_set_style (GTK_WIDGET(viewport), GTK_STYLE(style));
+		}
+		else g_signal_connect( viewport, "expose_event", G_CALLBACK(on_viewport_expose), NULL );	//end add
 #endif
 
         page_data->page_vbox = page_vbox;
