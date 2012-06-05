@@ -1,0 +1,3 @@
+	../src/lxlauncher.c \
+	../src/exo-wrap-table.c \
+	../src/misc.c
