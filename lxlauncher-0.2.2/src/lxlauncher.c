@@ -71,6 +71,7 @@ static gint button_size;
 static gint img_size;
 
 static int area_width, area_height;		//added
+static gchar* bg_img_path;		//added
 
 typedef struct _PageData{
     MenuCacheDir* dir;
@@ -700,10 +701,11 @@ static void create_notebook_pages()
 */
 		GdkPixmap* background;	//start add
 		GtkStyle* style;
-		char* file_path;
+		//char* file_path;
 		
-		file_path = "/home/kid/Pictures/background1.JPG";
-		pixbuf = gdk_pixbuf_new_from_file_at_scale(file_path, area_width, area_height, FALSE, NULL);
+		//file_path = "/home/kid/Pictures/background1.JPG";
+		bg_img_path = g_key_file_get_string(key_file, "Main", "BG_IMG_PATH", NULL);
+		pixbuf = gdk_pixbuf_new_from_file_at_scale(bg_img_path, area_width, area_height, FALSE, NULL);
 		if(pixbuf){
 	    	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &background, NULL, 0);
 	    	style = gtk_style_new ();
