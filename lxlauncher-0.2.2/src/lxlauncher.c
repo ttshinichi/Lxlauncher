@@ -72,6 +72,7 @@ static gint img_size;
 
 static int area_width, area_height;		//added
 static gchar* bg_img_path;		//added
+static int tab_icon_size;		//added
 
 typedef struct _PageData{
     MenuCacheDir* dir;
@@ -494,11 +495,7 @@ GdkFilterReturn evt_filter(GdkXEvent *xevt, GdkEvent *evt, gpointer data)
     if(xev->type == PropertyNotify && xev->xproperty.atom == atom_NET_WORKAREA )
     {
         GdkRectangle working_area;
-#if GTK_CHECK_VERSION(2,24,0)
         get_working_area( gdk_window_get_screen(evt->any.window), &working_area );
-#else
-        get_working_area( gdk_drawable_get_screen(evt->any.window), &working_area );
-#endif
         gtk_window_move( GTK_WINDOW(main_window), working_area.x, working_area.y );
         gtk_window_resize( GTK_WINDOW(main_window), working_area.width, working_area.height );
     }
@@ -621,7 +618,7 @@ static void create_notebook_pages()
         GtkWidget* image;
         GtkWidget* go_up_bar = gtk_hbox_new( FALSE, 2 );
         GdkPixbuf* pixbuf=NULL;
-        gchar* file;
+        char* file;
         PageData* page_data;
         MenuCacheDir* dir = (MenuCacheDir*)l->data;
 
@@ -651,7 +648,28 @@ static void create_notebook_pages()
         g_signal_connect( adj, "value-changed", G_CALLBACK(on_scroll), page_data );
 
         // create label
-        image = gtk_image_new_from_icon_name( menu_cache_item_get_icon(MENU_CACHE_ITEM(dir)), GTK_ICON_SIZE_MENU );
+        //image = gtk_image_new_from_icon_name( menu_cache_item_get_icon(MENU_CACHE_ITEM(dir)), GTK_ICON_SIZE_DIALOG );
+        
+        tab_icon_size = g_key_file_get_integer(key_file, "Main", "TAB_ICON_SIZE", NULL);	//start add
+        switch (tab_icon_size){
+	        case 16:
+	        	image = gtk_image_new_from_icon_name( menu_cache_item_get_icon(MENU_CACHE_ITEM(dir)), GTK_ICON_SIZE_MENU );
+	        	break;
+	        case 18:
+	        	image = gtk_image_new_from_icon_name( menu_cache_item_get_icon(MENU_CACHE_ITEM(dir)), GTK_ICON_SIZE_SMALL_TOOLBAR );
+	        	break;
+	        case 24:
+	        	image = gtk_image_new_from_icon_name( menu_cache_item_get_icon(MENU_CACHE_ITEM(dir)), GTK_ICON_SIZE_LARGE_TOOLBAR );
+	        	break;
+	        case 32:
+	        	image = gtk_image_new_from_icon_name( menu_cache_item_get_icon(MENU_CACHE_ITEM(dir)), GTK_ICON_SIZE_DND );
+	        	break;
+	        case 48:
+	        	image = gtk_image_new_from_icon_name( menu_cache_item_get_icon(MENU_CACHE_ITEM(dir)), GTK_ICON_SIZE_DIALOG );
+	        	break;
+	        default:
+	        	image = gtk_image_new_from_icon_name( menu_cache_item_get_icon(MENU_CACHE_ITEM(dir)), GTK_ICON_SIZE_LARGE_TOOLBAR );
+        }		//end add
 
         gtk_box_pack_start( GTK_BOX(label), image, FALSE, TRUE, 2 );
         gtk_box_pack_start( GTK_BOX(label), gtk_label_new( menu_cache_item_get_name(MENU_CACHE_ITEM(dir)) ), FALSE, TRUE, 2 );
@@ -681,7 +699,7 @@ static void create_notebook_pages()
         pixbuf = gdk_pixbuf_new_from_file( file, NULL );
         g_free( file );
 */
-/*        GdkPixmap* pixmap;
+        /*GdkPixmap* pixmap;
         GdkGC *pixmap_gc=NULL;
         if( pixbuf )
         {
@@ -697,9 +715,9 @@ static void create_notebook_pages()
             g_object_weak_ref( G_OBJECT(viewport), (GWeakNotify)g_object_unref, pixmap );
             g_object_unref(pixmap_gc);
         }
-        g_signal_connect( viewport, "expose_event", G_CALLBACK(on_viewport_expose), pixmap );
-*/
-		GdkPixmap* background;	//start add
+        g_signal_connect( viewport, "expose_event", G_CALLBACK(on_viewport_expose), pixmap );*/
+        
+        GdkPixmap* background;	//start add
 		GtkStyle* style;
 		//char* file_path;
 		

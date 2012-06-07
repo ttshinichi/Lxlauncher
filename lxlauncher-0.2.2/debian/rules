@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+UBUNTU = $(shell dpkg-vendor --derives-from Ubuntu && echo yes)
+
+%:
+	dh $@
+
+override_dh_auto_test:
+        # Disabled: Incompelete in po/
+
+ifeq ($(UBUNTU),yes)
+override_dh_install:
+	dh_install -plxlauncher debian/local/source_lxlauncher.py usr/share/apport/package-hooks
+endif

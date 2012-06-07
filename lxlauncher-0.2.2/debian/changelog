@@ -1,0 +1,215 @@
+lxlauncher (0.2.2-1ubuntu2) precise; urgency=low
+
+  * 90_disable_main_window_resize_handle.patch:
+    - drop that patch to disable resize grip, that was needed because of 
+      Ubuntu had a backport of a gtk3 feature but it has been decided to
+      drop that distro specific change before the lts (lp: #944296)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 01 Mar 2012 21:02:45 +0100
+
+lxlauncher (0.2.2-1ubuntu1) oneiric; urgency=low
+
+  * Merge from Debian unstable, Ubuntu remaining changes :
+  * debian/local/source_lxlauncher.py:
+   - Add apport hook (thanks Matthew Byers) LP: #791862
+  * debian/rules:
+   - Install apport hook only on Ubuntu.
+  * debian/control:
+   - Wrap depends and build-depends.
+  * debian/patches:
+   - 90_disable_main_window_resize_handle.patch: Updated to always apply since
+     Ubuntu has resize grip on GTK2 too.
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Fri, 29 Jul 2011 01:28:49 +0200
+
+lxlauncher (0.2.2-1) unstable; urgency=low
+
+  * Use debhelper 8
+  * Sorting  build-depends.
+  * Wapping build-depends.
+  * Removing useless whitespaces at EOL and EOF.
+  * Bumped Standard-Version to 3.9.2.
+  * Updating Vcs-Browser and Vcs-Git tags.
+  * Sorting depends.
+  * Added debian/source/options file.
+  * Enable dh_auto_test.
+  * Compacting watch file.
+  * Merging upstream version 0.2.2: (Closes: #555574)
+    - Fix building with gtk older tha 2.24
+    - Fix-wrong-arg-to-gtk_menu_popup
+    - Fix-g_spawn_async-usage
+    - Fixed GdkRGBA usage
+    - Fix drawing with gtk3
+    - Fix usage of GtkAllocation
+    - Use GDK_WINDOW_XID instead of GDK_WINDOW_XWINDOW
+    - Use gdk_window instead of gdk_drawable
+    - Remove a MENU_CACHE reference
+    - Use a gtk3 function for drawing the background
+    - Fix GtkAllocation and border_width of GtkContainer
+    - Remove GTK_NO_WINDOW
+    - Use new method for size-request of gtk3
+    - Remove GDK_DISPLAY usage
+    - Fix property of gtk_settings_install_property
+    - Modify rendering for gtk3
+    - Fix viewport for gtk3
+    - Fix gtk_window and can_focus
+    - Others gtk_adjustement fixes
+    - Fix gtk_adjustment for gtk3
+    - Remove GTK_* usage
+    - Add an option to compile with gtk3
+    - Add the ability to use another prefix for the menu (original
+      patch by Christopher R. Gabriel)
+    - Remove resize grip wih GTK3 (patch from Jonathan Marsden)
+    - Generate po/LINGUAS at build time
+    - Add missing x11 flags
+    - Apply patch from Enrico Zini Do not segfault if a window manager
+      returns no data for current desktop.
+    - Fix for the new behavior of libmenu-cache 0.3 series.
+    - Correcting misspelling of LXLauncher found by Josep Sànchez
+    - Fix failure with "builtin" icons: code change propagated from lxpanel
+    - Apply build loop patch to lxlauncher and lxsession-edit
+  * Completing and rewriting copyright file in machine interpretable format.
+  * Remove debian/dirs: let upstream's makefile does the work.
+  * Drop 01_fix_infinite_loop.patch: included in upstream.
+  * Drop 02_lxlauncher-matchbox.patch: included in upstream.
+  * Drop 03_libmenu-cache-0.3-series.patch: included in upstream.
+  * Remove debian/patches/ as no patch available.
+  * Remove debian/docs: empty NEWS and useless README file.
+  * Compacting rules file.
+  * Apply 01_fix_empty_icon.patch from Julien Lavergne.
+  * Disabling dh_auto_test: Incompelete in po/.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Wed, 27 Jul 2011 14:28:27 +0800
+
+lxlauncher (0.2.2-0ubuntu2) oneiric; urgency=low
+
+  * debian/patches:
+   - 01_fix_empty_lxlauncher.patch: Fix empty lxlauncher.
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Tue, 26 Jul 2011 22:48:18 +0200
+
+lxlauncher (0.2.2-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release.
+  * debian/patches:
+   - 01_fix_infinite_loop.patch: Remove, merged upstream.
+   - 02_lxlauncher-matchbox.patch: Remove, merged upstream.
+   - 03_libmenu-cache-0.3-series.patch: Remove, merged upstream.
+   - 04_fix-ftbfs_binutils-gold.patch: Remove, fixed upstream.
+   - 80_translations.patch: Remove, merged upstream.
+   - 90_disable_main_window_resize_handle.patch: Updated to always apply since
+     Ubuntu has resize grip on GTK2 too.
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Sun, 24 Jul 2011 01:03:14 +0200
+
+lxlauncher (0.2.1-3ubuntu4) oneiric; urgency=low
+
+  * debian/apport/source_lxappearance.py:
+   - Add apport hook (thanks Matthew Byers) LP: #791862
+  * debian/rules:
+   - Install apport hook only on Ubuntu.
+   - Use --fail-missing for dh_install.
+  * debian/control:
+   - Wrap depends and build-depends.
+   - Build-depends on lsb-release, needed to detect the distribution.
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Fri, 10 Jun 2011 20:32:23 +0200
+
+lxlauncher (0.2.1-3ubuntu3) oneiric; urgency=low
+
+  * 90_disable_main_window_resize_handle.patch:
+   - Disable main window resize handle. (LP: #778151)
+
+ -- Jonathan Marsden <jmarsden@fastmail.fm>  Wed, 11 May 2011 19:19:55 -0700
+
+lxlauncher (0.2.1-3ubuntu2) natty; urgency=low
+
+  * Remove auto-generated patch.
+  * debian/patches/
+   - 80_translations.patch: Update translations from upstream git (2011-02-14)
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Sun, 27 Feb 2011 01:36:50 +0100
+
+lxlauncher (0.2.1-3ubuntu1) natty; urgency=low
+
+  * debian/patches/04_fix-ftbfs_binutils-gold.patch: 
+    fix FTBFS binutils-gold by adding X11 library in src/Makefile.*
+    (LP: #703373)
+
+ -- Mahyuddin Susanto <udienz@gmail.com>  Sun, 16 Jan 2011 03:54:06 +0700
+
+lxlauncher (0.2.1-3) unstable; urgency=low
+
+  * Applied 03_libmenu-cache-0.3-series.dpatch
+  * debian/control:
+    - Minor fix in description (Closes:#534190)
+    - Team maintainer: Debian LXDE Packaging Team
+    - Added Vcs-Git and Vcs-Browser tags
+    - Build-depends on libmenu-cache1-dev (>= 0.3.2) (Closes:#577336)
+  * Bumpped Standard-Version to 3.8.4
+  * Switch to dpkg-source 3.0 (quilt) format
+  * Set urgency=high for unblock transition on LXDE packages.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 15 Apr 2010 00:03:44 +0800
+
+lxlauncher (0.2.1-2) unstable; urgency=low
+
+  * Applied 01_fix_infinite_loop.dpatch (Closes:#537404)
+  * debian/control:
+    - build-depends on intltool, autoconf
+
+ -- Andrew Lee <andrew@linux.org.tw>  Sat, 18 Jul 2009 21:55:01 +0200
+
+lxlauncher (0.2.1-1) unstable; urgency=low
+
+  * New upstream release
+    - Supports configuation file in /etc/xdg/lxlauncher/settings.conf 
+      Now button and image size are configurable
+    - Load gtkrc file from XDG config dirs
+    - Updated translations
+  * Drop patches already included in upstream:
+    - 01_lxlauncher-missing-include.dpatch
+    - 03_scale-icons.dpatch
+    - 04_update-translations.dpatch
+  * debian/control:
+    - Build-depends on libmenu-cache-dev
+    - Depends on lxmenu
+  * debian/rules:
+    - Aded --sysconfdir=/etc
+  * Updated debian/copyright
+  * Bumpped Standard-Version to 3.8.2
+
+ -- Andrew Lee <andrew@linux.org.tw>  Sat, 11 Jul 2009 19:22:54 +0800
+
+lxlauncher (0.2-3) unstable; urgency=low
+
+  * Applied 02_lxlauncher-matchbox.dpatch (Closes: #498601)
+    Thanks to Enrico Zini <enrico@debian.org> for the patch.
+  * Applied 03_scale-icons.dpatch to make different icons looks all in 
+    equal size.
+  * Updated translations. (Closes: #509758)
+
+ -- Andrew Lee <andrew@linux.org.tw>  Sat, 31 Jan 2009 22:51:20 +0800
+
+lxlauncher (0.2-2) unstable; urgency=low
+
+  * Applied 01_lxlauncher-missing-include.dpatch (Closes: #488727)
+    Thanks to dann frazier <dannf@debian.org> for the patch.
+
+ -- Andrew Lee <andrew@linux.org.tw>  Tue, 01 Jul 2008 17:14:34 +0800
+
+lxlauncher (0.2-1) unstable; urgency=low
+
+  * New upstream release (Closes: #487986)
+    - Supports sub-menus
+    - Uses cairo to draw backgrounds
+  * Bumped Standards-Version to 3.8.0.0
+    - Supporting the standardized environment variable `DEB_BUILD_OPTIONS'
+
+ -- Andrew Lee <andrew@linux.org.tw>  Mon, 30 Jun 2008 04:31:12 +0800
+
+lxlauncher (0.1.6-1) unstable; urgency=low
+
+  * Initial release (Closes: #482169)
+
+ -- Andrew Lee <andrew@linux.org.tw>  Sun, 25 May 2008 14:59:10 +0800
